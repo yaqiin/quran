@@ -89,7 +89,7 @@ export default function DocumentViewer({ totalPages, className }: DocumentViewer
             disabled={currentPage === 1}
             title="الصفحة الأولى"
           >
-            <SkipBack className="h-4 w-4" />
+            <SkipForward className="h-4 w-4" />
           </Button>
           
           <Button
@@ -131,7 +131,7 @@ export default function DocumentViewer({ totalPages, className }: DocumentViewer
             disabled={isMobile ? currentPage === totalPages : currentPage + 1 >= totalPages}
             title="الصفحة الأخيرة"
           >
-            <SkipForward className="h-4 w-4" />
+            <SkipBack className="h-4 w-4" />
           </Button>
         </div>
         

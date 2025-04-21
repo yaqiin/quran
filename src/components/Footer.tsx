@@ -1,26 +1,76 @@
+import { Github, Mail } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
-export default function Footer() {
+const socialLinks = [
+  {
+    icon: Github,
+    href: 'https://github.com/yaqiin/yaqiin-quran',
+    label: 'Github',
+  },
+  {
+    icon: Mail,
+    href: 'mailto:contact@yaqiin.org',
+    label: 'Mail',
+  },
+];
+
+export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-muted py-6 mt-12">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} كتاب العربية. جميع الحقوق محفوظة.
-          </p>
-          
-          <div className="mt-4 md:mt-0 flex space-x-6 rtl:space-x-reverse">
-            <a href="#privacy" className="text-muted-foreground hover:text-primary text-sm">
-              سياسة الخصوصية
-            </a>
-            <a href="#terms" className="text-muted-foreground hover:text-primary text-sm">
-              شروط الاستخدام
-            </a>
-            <a href="#contact" className="text-muted-foreground hover:text-primary text-sm">
-              اتصل بنا
-            </a>
+      <footer className="mt-auto w-full bg-secondary/20 px-4 text-foreground dark:bg-secondary/10">
+        <div className="relative mx-auto max-w-7xl">
+          {/* Subtle Separator */}
+          <Separator className="mb-4 bg-muted-foreground/20" />
+
+          {/* Mobile */}
+          <div className="flex flex-col items-center gap-2 py-4 md:hidden">
+            <div className="flex items-center justify-center gap-6">
+              {socialLinks.map((link) => (
+                  <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground transition-colors hover:text-foreground dark:text-muted-foreground/70 dark:hover:text-foreground"
+                      aria-label={link.label}
+                  >
+                    <link.icon className="h-6 w-6" />
+                  </a>
+              ))}
+            </div>
+
+            <p className="text-center text-sm text-muted-foreground dark:text-muted-foreground/70">
+              {currentYear} &copy;  يقين للقرأن الكريم. جميع الحقوق محفوظة.
+            </p>
+          </div>
+
+          {/* Desktop */}
+          <div className="hidden py-4 md:block">
+            <div className="flex items-center justify-center gap-6">
+              {socialLinks.map((link) => (
+                  <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground transition-colors hover:text-foreground dark:text-muted-foreground/70 dark:hover:text-foreground"
+                      aria-label={link.label}
+                  >
+                    <link.icon className="h-6 w-6" />
+                  </a>
+              ))}
+            </div>
+
+            <p
+                className={'absolute top-1/2 -translate-y-1/2 text-sm text-muted-foreground dark:text-muted-foreground/70 right-4 text-right'}
+            >
+              {currentYear} &copy; يقين للقرأن الكريم. جميع الحقوق محفوظة.
+            </p>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
   );
 }
+
+export default Footer;

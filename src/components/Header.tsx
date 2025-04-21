@@ -1,30 +1,30 @@
-
-import { Button } from "@/components/ui/button";
+import {useNavigate} from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
     <header className="bg-background border-b py-4">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-primary">كتاب العربية</h1>
+      <div className="flex flex-row lg:flex-row md:flex-col justify-between items-center gap-4 mb-8">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4 hover:cursor-pointer" onClick={() => navigate("/")}>
+            {/*Logo*/}
+            <img
+                src="/logo.png"
+                alt="يقين"
+                className="w-12 h-12 md:w-16 md:h-16"
+            />
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-mosque-primary">القرأن الكريم</h1>
+              <p className="text-mosque-accent text-sm md:text-base">
+                يقين للقرأن العظيم
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <nav className="hidden md:flex items-center space-x-6 rtl:space-x-reverse">
-          <a href="/" className="text-foreground hover:text-primary transition-colors">
-            الصفحة الرئيسية
-          </a>
-          <a href="#about" className="text-foreground hover:text-primary transition-colors">
-            حول الكتاب
-          </a>
-          <a href="#contact" className="text-foreground hover:text-primary transition-colors">
-            تواصل معنا
-          </a>
-        </nav>
-        
-        <div className="flex items-center space-x-2 rtl:space-x-reverse">
-          <Button variant="ghost" size="sm">
-            مساعدة
-          </Button>
+
+        <div className="hidden md:flex gap-2 flex-wrap">
+          {/*Menu Items*/}
         </div>
       </div>
     </header>

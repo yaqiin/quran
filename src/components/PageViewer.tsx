@@ -61,7 +61,7 @@ export default function PageViewer({ pageNumber, totalPages, className }: PageVi
         <>
           {/* For the demo, we'll use placeholder images */}
           <img 
-            src={`https://placehold.co/800x1200/e2e8f0/1e293b?text=صفحة+${pageNumber}`} 
+            src={pagePath}
             alt={`صفحة ${pageNumber}`}
             className={cn(
               "w-full h-full object-contain transition-opacity duration-300", 
