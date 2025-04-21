@@ -8,14 +8,16 @@ import {
   SkipForward,
 } from "lucide-react";
 import PageViewer from "./PageViewer";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface DocumentViewerProps {
-  totalPages: number;
   className?: string;
 }
 
-export default function DocumentViewer({ totalPages, className }: DocumentViewerProps) {
+export default function DocumentViewer({ className }: DocumentViewerProps) {
+  const {t} = useLanguage();
   const isMobile = useIsMobile();
+  const totalPages = 604; // Total number of pages in the document
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // ==== Improved "انتقال" Section state ====
@@ -180,7 +182,7 @@ export default function DocumentViewer({ totalPages, className }: DocumentViewer
         {/* Improved Page number input */}
         <div className="flex flex-col items-center gap-1">
           <label htmlFor="goto-input" className="text-right w-full text-xs md:text-sm font-bold mb-1 text-muted-foreground">
-            اذهب إلى صفحة معينة
+            {t('goToPage')}
           </label>
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <input
@@ -199,7 +201,7 @@ export default function DocumentViewer({ totalPages, className }: DocumentViewer
               variant="secondary"
               onClick={handleGoto}
             >
-              انتقال
+              {t('goTo')}
             </Button>
           </div>
           {gotoError && (

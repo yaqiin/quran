@@ -2,129 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
-
 @layer base {
   :root {
-    --background: 32 50% 98%;
-    --foreground: 36 10% 20%;
+    --background: 178 30% 97%;
+    --foreground: 178 60% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 178 60% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 178 60% 10%;
 
-    --primary: 36 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 178 100% 34%;
+    --primary-foreground: 178 5% 98%;
 
-    --secondary: 36 30% 90%;
-    --secondary-foreground: 36 10% 20%;
+    --secondary: 178 30% 94%;
+    --secondary-foreground: 178 60% 16%;
 
-    --muted: 36 20% 96%;
-    --muted-foreground: 36 5% 45%;
+    --muted: 178 20% 92%;
+    --muted-foreground: 178 20% 40%;
 
-    --accent: 36 60% 95%;
-    --accent-foreground: 36 10% 20%;
+    --accent: 178 30% 90%;
+    --accent-foreground: 178 60% 16%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 36 10% 90%;
-    --input: 36 10% 90%;
-    --ring: 36 70% 50%;
+    --border: 178 20% 88%;
+    --input: 178 20% 88%;
+    --ring: 178 100% 34%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 36 20% 98%;
-    --sidebar-foreground: 36 10% 20%;
-    --sidebar-primary: 36 70% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 36 60% 95%;
-    --sidebar-accent-foreground: 36 10% 20%;
-    --sidebar-border: 36 10% 90%;
-    --sidebar-ring: 36 70% 50%;
   }
 
   .dark {
-    --background: 36 15% 10%;
-    --foreground: 36 10% 90%;
+    --background: 178 20% 8%;
+    --foreground: 178 20% 92%;
 
-    --card: 36 15% 12%;
-    --card-foreground: 36 10% 90%;
+    --card: 178 14% 12%;
+    --card-foreground: 178 20% 92%;
 
-    --popover: 36 15% 12%;
-    --popover-foreground: 36 10% 90%;
+    --popover: 178 14% 12%;
+    --popover-foreground: 178 20% 92%;
 
-    --primary: 36 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 178 100% 34%;
+    --primary-foreground: 178 5% 98%;
 
-    --secondary: 36 15% 25%;
-    --secondary-foreground: 36 10% 90%;
+    --secondary: 178 10% 20%;
+    --secondary-foreground: 178 30% 94%;
 
-    --muted: 36 15% 20%;
-    --muted-foreground: 36 10% 70%;
+    --muted: 178 10% 24%;
+    --muted-foreground: 178 10% 60%;
 
-    --accent: 36 15% 25%;
-    --accent-foreground: 36 10% 90%;
+    --accent: 178 15% 22%;
+    --accent-foreground: 178 30% 94%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 36 15% 25%;
-    --input: 36 15% 25%;
-    --ring: 36 70% 50%;
-    
-    --sidebar-background: 36 15% 12%;
-    --sidebar-foreground: 36 10% 90%;
-    --sidebar-primary: 36 70% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 36 15% 25%;
-    --sidebar-accent-foreground: 36 10% 90%;
-    --sidebar-border: 36 15% 25%;
-    --sidebar-ring: 36 70% 50%;
+    --border: 178 10% 28%;
+    --input: 178 10% 28%;
+    --ring: 178 100% 34%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
-  }
-
-  html {
-    direction: rtl;
-    font-family: 'Tajawal', sans-serif;
   }
 
   body {
     @apply bg-background text-foreground;
   }
-  
-  /* Custom Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+
+  /* RTL-specific styles */
+  .rtl {
+    direction: rtl;
+    text-align: right;
   }
-  
-  @keyframes slideInRight {
-    from { transform: translateX(20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+
+  .ltr {
+    direction: ltr;
+    text-align: left;
   }
-  
-  @keyframes slideInLeft {
-    from { transform: translateX(-20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+}
+
+@layer components {
+  .yaqiin-container {
+    @apply container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
   }
-  
-  .animate-fadeIn {
-    animation: fadeIn 0.5s ease-in-out;
+
+  .btn-primary {
+    @apply bg-yaqiin-500 text-white transition-colors hover:bg-yaqiin-600;
   }
-  
-  .animate-slideInRight {
-    animation: slideInRight 0.5s ease-out;
-  }
-  
-  .animate-slideInLeft {
-    animation: slideInLeft 0.5s ease-out;
+
+  .card-hover {
+    @apply transition-all duration-300 hover:border-yaqiin-300 hover:shadow-md;
   }
 }

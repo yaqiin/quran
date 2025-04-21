@@ -1,51 +1,31 @@
+import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageToggle from './LanguageToggle';
+import { ModeToggle } from './ModeToggle';
 
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "@/hooks/use-theme";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
-export default function Header() {
-  const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+const Header = () => {
+  const { t } = useLanguage();
 
   return (
-    <header className="bg-background border-b py-4">
-      <div className="flex flex-row lg:flex-row md:flex-col justify-between items-center gap-4 mb-8">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-4 hover:cursor-pointer" onClick={() => navigate("/")}>
-            {/*Logo*/}
-            <img
-              src="/logo.png"
-              alt="يقين"
-              className="w-12 h-12 md:w-16 md:h-16"
-            />
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold text-mosque-primary">القرأن الكريم</h1>
-              <p className="text-mosque-accent text-sm md:text-base">
-                يقين للقرأن العظيم
-              </p>
-            </div>
-          </div>
-        </div>
+    <header className="top-0 z-10 bg-background/80 shadow-sm backdrop-blur-sm dark:shadow-yaqiin-50/5">
+      <div className="yaqiin-container flex items-center justify-between">
+      </div>
+      <div className="flex flex-col items-center mb-12">
+        <img
+          src="/logo.png"
+          alt="يقين"
+          className="w-24 h-24 mb-4"
+        />
+        <h1 className="text-4xl font-bold text-yaqiin-800 dark:text-yaqiin-500 mb-2">{t('siteName')}</h1>
+        <p>{t('siteSlogan')}</p>
 
-        <div className="flex flex-row items-center gap-4">
-          {/* Dark mode toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label={theme === "dark" ? "تبديل إلى الوضع النهاري" : "تبديل إلى الوضع الليلي"}
-            title={theme === "dark" ? "الوضع النهاري" : "الوضع الليلي"}
-            onClick={toggleTheme}
-            className="transition-all"
-          >
-            {theme === "dark" ? (
-              <Sun className="w-6 h-6 text-yellow-400" />
-            ) : (
-              <Moon className="w-6 h-6 text-gray-700" />
-            )}
-          </Button>
+        <div className="flex items-center gap-2 mt-4">
+          <LanguageToggle />
+          <ModeToggle />
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default Header;

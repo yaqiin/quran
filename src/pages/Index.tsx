@@ -1,20 +1,15 @@
-
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import DocumentViewer from "@/components/DocumentViewer";
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { useLanguage } from '@/contexts/LanguageContext';
+import DocumentViewer from '@/components/DocumentViewer.tsx';
 
 const Index = () => {
-  const TOTAL_PAGES = 604;
-  
+  const { isRTL } = useLanguage();
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`flex min-h-screen flex-col ${isRTL ? 'rtl' : 'ltr'}`}>
       <Header />
-      
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <section className="max-w-5xl mx-auto">
-          <DocumentViewer totalPages={TOTAL_PAGES} />
-        </section>
-      </main>
+      <DocumentViewer className="yaqiin-container flex-grow animate-fade-in py-6" />
       <Footer />
     </div>
   );
