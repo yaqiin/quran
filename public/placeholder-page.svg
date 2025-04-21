@@ -1,0 +1,6 @@
+
+<svg width="800" height="1200" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1200" fill="#f8f8f8"/>
+  <text x="400" y="600" font-family="Tajawal, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#333">صفحة نموذجية</text>
+  <text x="400" y="660" font-family="Tajawal, sans-serif" font-size="24" text-anchor="middle" fill="#666">يمكن استبدال هذا بملفات SVG الفعلية</text>
+</svg>
