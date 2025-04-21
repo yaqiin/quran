@@ -17,7 +17,7 @@ export default function PageViewer({ pageNumber, totalPages, className }: PageVi
   const formattedPageNumber = pageNumber.toString().padStart(3, '0');
   
   // SVG path
-  const pagePath = `/pages/${formattedPageNumber}.svg`;
+  const pagePath = `https://raw.githubusercontent.com/yaqiin/quran-svg/refs/heads/main/hafs/${formattedPageNumber}.svg`;
   
   useEffect(() => {
     // Reset loading state when page changes
