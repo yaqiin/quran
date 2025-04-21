@@ -15,7 +15,7 @@ export type Language = keyof typeof SUPPORTED_LANGUAGES;
 export const translations = {
   ar: {
     siteName: 'القرأن الكريم',
-    siteSlogan: 'تصفح الآيات، وامنح قلبك يقينًا لا يزول',
+    siteSlogan: 'نور للعقل، يقين للقلب',
     toggleLanguage: 'English',
     error: 'حدث خطأ في تحميل البيانات',
     pageNotFound: 'عذرًا! الصفحة غير موجودة',
@@ -23,6 +23,12 @@ export const translations = {
     copyright: 'يقين للقرأن الكريم. جميع الحقوق محفوظة.',
     goToPage: 'اذهب إلى صفحة معينة',
     goTo: 'إنتقال',
+    firstPage: 'الصفحة الأولى',
+    previousPage: 'الصفحة السابقة',
+    nextPage: 'الصفحة التالية',
+    of: 'من',
+    pageNumber: 'رقم الصفحة',
+    pageNumberError: 'رقم الصفحة غير صحيح',
   },
   en: {
     siteName: 'Holy Quran',
@@ -34,6 +40,12 @@ export const translations = {
     copyright: 'Yaqiin Quran. All rights reserved.',
     goToPage: 'Go To Page',
     goTo: 'Go To',
+    firstPage: 'First Page',
+    previousPage: 'Previous Page',
+    nextPage: 'Next Page',
+    of: 'of',
+    pageNumber: 'Page Number',
+    pageNumberError: 'Invalid page number',
   }
 };
 
