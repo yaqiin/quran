@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 const socialLinks = [
   {
     icon: Github,
-    href: 'https://github.com/yaqiin/yaqiin-quran',
+    href: 'https://github.com/yaqiin/quran',
     label: 'Github',
   },
   {

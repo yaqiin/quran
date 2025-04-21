@@ -4,14 +4,13 @@ Thank you for helping improve this project! Choose how you'd like to contribute:
 
 ## 🐛 Report bugs
 
-- Check existing [issues](https://github.com/yaqiin/yaqiin-quran/issues) first
+- Check existing [issues](https://github.com/yaqiin/quran/issues) first
 - Open a new issue if it's not reported yet
 - Include steps to reproduce the bug
 
 ## 💡 Suggest Improvements
 
-- Open an [issue](https://github.com/yaqiin/yaqiin-quran/issues) to discuss
-  your idea
+- Open an [issue](https://github.com/yaqiin/quran/issues) to discuss your idea
 - We will let you know if it fits the project
 
 ## 🛠️ Development
@@ -22,7 +21,7 @@ Here's how to get started:
 
 - Find an issue to work on (or start a new one)
 - Fork the repo and make your changes
-- Open a [pull request](https://github.com/yaqiin/yaqiin-quran/pulls) with:
+- Open a [pull request](https://github.com/yaqiin/quran/pulls) with:
   - Description of your changes
   - Links to any related issues
 
@@ -31,4 +30,3 @@ Here's how to get started:
 - Refactor/Improve existing code
 - Add new feature
 - Fix bugs
-
