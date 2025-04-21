@@ -7,7 +7,7 @@ const Index = () => {
   const { isRTL } = useLanguage();
 
   return (
-    <div className={`flex min-h-screen flex-col ${isRTL ? 'rtl' : 'ltr'}`}>
+    <div className={`flex min-h-screen flex-col pt-4 ${isRTL ? 'rtl' : 'ltr'}`}>
       <Header />
       <DocumentViewer className="yaqiin-container flex-grow animate-fade-in py-6" />
       <Footer />
