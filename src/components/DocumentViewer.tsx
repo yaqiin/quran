@@ -1,77 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, SkipBack, SkipForward } from 'lucide-react';
 import PageViewer from './PageViewer';
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useBrowseQuran } from '@/lib/viewmodels/browse-quran.viewmodel';
+import { ChevronLeft, ChevronRight, SkipBack, SkipForward } from 'lucide-react';
 
 interface DocumentViewerProps {
   className?: string;
 }
 
 export default function DocumentViewer({ className }: DocumentViewerProps) {
-  const { t, isRTL, currentLanguage } = useLanguage();
-  const isMobile = useIsMobile();
   const totalPages = 604; // Total number of pages in the document
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { t, isRTL, currentLanguage } = useLanguage();
 
-  // Navigation state
-  const [gotoPage, setGotoPage] = useState<string>('1');
-  const [gotoError, setGotoError] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  // Calculate page increment based on view and RTL
-  const pageIncrement = isMobile ? 1 : 2;
-
-  // Adjust page number when switching between mobile/desktop
-  useEffect(() => {
-    if (!isMobile && currentPage % 2 === 0) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  }, [isMobile, currentPage]);
-
-  // Navigation handlers with RTL consideration
-  const goToNextPages = () => {
-    setCurrentPage((prev) => Math.min(totalPages, prev + pageIncrement));
-  };
-
-  const goToPreviousPages = () => {
-    setCurrentPage((prev) => Math.max(1, prev - pageIncrement));
-  };
-
-  const goToFirstPage = () => {
-    setCurrentPage(1);
-  };
-
-  const goToLastPage = () => {
-    const lastPage = isMobile ? totalPages : totalPages % 2 === 0 ? totalPages - 1 : totalPages;
-    setCurrentPage(lastPage);
-  };
-
-  const handleGoto = () => {
-    const page = parseInt(gotoPage, 10);
-    if (isNaN(page) || page < 1 || page > totalPages) {
-      setGotoError(t('pageNumberError', { min: 1, max: totalPages }));
-      inputRef.current?.focus();
-    } else {
-      setCurrentPage(page);
-      setGotoError(null);
-      setGotoPage(String(page));
-      inputRef.current?.blur();
-    }
-  };
-
-  const handleGotoInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleGoto();
-    }
-  };
-
-  useEffect(() => {
-    setGotoPage(String(currentPage));
-    setGotoError(null);
-  }, [currentPage]);
+  const {
+    isMobile,
+    currentPage,
+    gotoPage,
+    gotoError,
+    inputRef,
+    setGotoPage,
+    handleGoto,
+    handleGotoInputKeyDown,
+    goToNextPages,
+    goToPreviousPages,
+    goToFirstPage,
+    goToLastPage,
+  } = useBrowseQuran(totalPages);
 
   const getPageDisplay = () => {
     if (isMobile) {
@@ -81,7 +35,7 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
           pageNumber={currentPage}
           totalPages={totalPages}
           className="animate-fadeIn aspect-[3/4] w-full max-w-md"
-        />
+        />,
       ];
     }
 
@@ -97,22 +51,24 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
         pageNumber={currentPage}
         totalPages={totalPages}
         className="animate-slideInLeft aspect-[3/4] w-1/2 max-w-md"
-      />
+      />,
     ];
   };
 
   const getNavigationIcons = () => {
-    return isRTL ? {
-      first: <SkipForward className="h-4 w-4" />,
-      previous: <ChevronRight className="h-4 w-4" />,
-      next: <ChevronLeft className="h-4 w-4" />,
-      last: <SkipBack className="h-4 w-4" />
-    } : {
-      first: <SkipBack className="h-4 w-4" />,
-      previous: <ChevronLeft className="h-4 w-4" />,
-      next: <ChevronRight className="h-4 w-4" />,
-      last: <SkipForward className="h-4 w-4" />
-    };
+    return isRTL
+      ? {
+          first: <SkipForward className="h-4 w-4" />,
+          previous: <ChevronRight className="h-4 w-4" />,
+          next: <ChevronLeft className="h-4 w-4" />,
+          last: <SkipBack className="h-4 w-4" />,
+        }
+      : {
+          first: <SkipBack className="h-4 w-4" />,
+          previous: <ChevronLeft className="h-4 w-4" />,
+          next: <ChevronRight className="h-4 w-4" />,
+          last: <SkipForward className="h-4 w-4" />,
+        };
   };
 
   const icons = getNavigationIcons();
@@ -121,7 +77,11 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
     <div className={className} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="flex flex-col items-center space-y-8">
         {/* Pages container */}
-        <div className={`flex w-full items-center justify-center gap-1 md:gap-2 lg:gap-3 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div
+          className={`flex w-full items-center justify-center gap-1 md:gap-2 lg:gap-3 ${
+            isRTL ? 'flex-row-reverse' : 'flex-row'
+          }`}
+        >
           {getPageDisplay()}
         </div>
 

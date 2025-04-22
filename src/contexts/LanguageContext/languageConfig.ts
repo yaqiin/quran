@@ -25,6 +25,7 @@ export const translations = {
     goTo: 'إنتقال',
     firstPage: 'الصفحة الأولى',
     previousPage: 'الصفحة السابقة',
+    lastPage: 'الصفحة السابقة',
     nextPage: 'الصفحة التالية',
     of: 'من',
     pageNumber: 'رقم الصفحة',
@@ -42,11 +43,12 @@ export const translations = {
     goTo: 'Go To',
     firstPage: 'First Page',
     previousPage: 'Previous Page',
+    lastPage: 'Last Page',
     nextPage: 'Next Page',
     of: 'of',
     pageNumber: 'Page Number',
     pageNumberError: 'Invalid page number',
-  }
+  },
 };
 
 export type TranslationKey = keyof (typeof translations)['ar'];
@@ -58,4 +60,5 @@ export interface LanguageContextType {
   isRTL: boolean;
   supportedLanguages: typeof SUPPORTED_LANGUAGES;
   isLoading: boolean;
+  currentLanguage: string; // Add this property
 }
