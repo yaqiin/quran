@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const LanguageToggle = () => {
@@ -18,13 +19,19 @@ const LanguageToggle = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="flex items-center gap-1.5 px-2" aria-label={t('toggleLanguage')}>
-          <Globe className="h-4 w-4 shrink-0" />
-          <span className="hidden text-sm font-medium sm:inline">{supportedLanguages[language].nativeName}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align={isRTL ? 'start' : 'end'} className="min-w-[140px]">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-9 w-9" aria-label={t('toggleLanguage')}>
+              <Globe className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{t('toggleLanguage')}</p>
+        </TooltipContent>
+      </Tooltip>
+      <DropdownMenuContent align={isRTL ? 'start' : 'end'} className="min-w-[120px]">
         {Object.entries(supportedLanguages).map(([code, config]) => {
           const isActive = language === code;
           return (
@@ -32,14 +39,11 @@ const LanguageToggle = () => {
               key={code}
               onClick={() => handleLanguageChange(code)}
               className={cn(
-                'flex cursor-pointer items-center justify-between gap-2',
+                'flex cursor-pointer items-center justify-between',
                 isActive && 'bg-accent font-medium',
               )}
             >
-              <span className="flex items-center gap-2">
-                <span className="text-sm">{config.nativeName}</span>
-                <span className="text-xs text-muted-foreground">({config.name})</span>
-              </span>
+              <span className="text-sm">{config.nativeName}</span>
               {isActive && <Check className="h-4 w-4 shrink-0 text-primary" />}
             </DropdownMenuItem>
           );

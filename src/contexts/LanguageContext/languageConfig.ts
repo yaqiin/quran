@@ -16,7 +16,7 @@ export const translations = {
   ar: {
     siteName: 'القرأن الكريم',
     siteSlogan: 'نور للعقل، يقين للقلب',
-    toggleLanguage: 'English',
+    toggleLanguage: 'تغيير اللغة',
     error: 'حدث خطأ في تحميل البيانات',
     pageNotFound: 'عذرًا! الصفحة غير موجودة',
     backHome: 'العودة إلى الصفحة الرئيسية',
@@ -31,11 +31,15 @@ export const translations = {
     pageNumber: 'رقم الصفحة',
     pageNumberError: 'رقم الصفحة غير صحيح',
     contributeOnGitHub: 'المساهمة على GitHub',
+    toggleTheme: 'تبديل المظهر',
+    themeLight: 'فاتح',
+    themeDark: 'داكن',
+    themeSystem: 'النظام',
   },
   en: {
     siteName: 'Holy Quran',
     siteSlogan: 'Light for the Mind, Yaqiin for the Heart',
-    toggleLanguage: 'العربية',
+    toggleLanguage: 'Change Language',
     error: 'Error loading data',
     pageNotFound: 'Oops! Page not found',
     backHome: 'Back Home',
@@ -50,6 +54,10 @@ export const translations = {
     pageNumber: 'Page Number',
     pageNumberError: 'Invalid page number',
     contributeOnGitHub: 'Contribute on GitHub',
+    toggleTheme: 'Toggle Theme',
+    themeLight: 'Light',
+    themeDark: 'Dark',
+    themeSystem: 'System',
   },
 };
 
