@@ -30,6 +30,7 @@ export const translations = {
     of: 'من',
     pageNumber: 'رقم الصفحة',
     pageNumberError: 'رقم الصفحة غير صحيح',
+    contributeOnGitHub: 'المساهمة على GitHub',
   },
   en: {
     siteName: 'Holy Quran',
@@ -48,6 +49,7 @@ export const translations = {
     of: 'of',
     pageNumber: 'Page Number',
     pageNumberError: 'Invalid page number',
+    contributeOnGitHub: 'Contribute on GitHub',
   },
 };
 

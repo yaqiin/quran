@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
 import DocumentViewer from '@/components/DocumentViewer.tsx';
@@ -14,10 +13,10 @@ const Index = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className={`flex min-h-screen flex-col ${isRTL ? 'rtl' : 'ltr'} transition-colors`}>
+    <div className={`flex h-screen flex-col overflow-hidden ${isRTL ? 'rtl' : 'ltr'} transition-colors`}>
       <Header />
 
-      <div className="flex w-full flex-1 flex-col gap-6 px-4 py-6 md:flex-row md:px-6 lg:px-8">
+      <div className="flex w-full flex-1 flex-col gap-2 overflow-hidden px-2 py-2 md:flex-row md:px-4 md:py-3">
         {/* Desktop Sidebar - Always visible */}
         {!isMobile && <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
 
@@ -25,15 +24,15 @@ const Index = () => {
         {isMobile && <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
 
         {/* Main Content */}
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col overflow-hidden">
           {/* Sidebar Toggle Button - Mobile Only */}
           {isMobile && (
-            <div className={`mb-4 flex ${isRTL ? 'justify-start' : 'justify-end'}`}>
+            <div className={`mb-2 flex ${isRTL ? 'justify-start' : 'justify-end'}`}>
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="h-9 w-9 rounded-lg"
+                className="h-8 w-8 rounded-lg"
                 aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
               >
                 <Menu className="h-4 w-4" />
@@ -42,13 +41,11 @@ const Index = () => {
           )}
 
           {/* Document Viewer */}
-          <div className="flex flex-1 items-center justify-center">
+          <div className="flex flex-1 items-center justify-center overflow-auto">
             <DocumentViewer className="w-full max-w-7xl animate-fade-in" />
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
