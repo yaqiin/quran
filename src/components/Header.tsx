@@ -7,19 +7,21 @@ const Header = () => {
   const { t } = useLanguage();
 
   return (
-    <header className="top-0 z-10 bg-background/80 shadow-sm backdrop-blur-sm dark:shadow-yaqiin-50/5">
-      <div className="yaqiin-container flex items-center justify-between">
-      </div>
-      <div className="flex flex-col items-center mb-12">
-        <img
-          src="/logo.png"
-          alt="يقين"
-          className="w-24 h-24 mb-4"
-        />
-        <h1 className="text-4xl font-bold text-yaqiin-800 dark:text-yaqiin-500 mb-2">{t('siteName')}</h1>
-        <p>{t('siteSlogan')}</p>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="yaqiin-container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="يقين"
+            className="h-10 w-10 rounded-lg object-contain transition-transform hover:scale-105"
+          />
+          <div className="hidden sm:block">
+            <h1 className="text-lg font-semibold text-foreground">{t('siteName')}</h1>
+            <p className="text-xs text-muted-foreground">{t('siteSlogan')}</p>
+          </div>
+        </div>
 
-        <div className="flex items-center gap-2 mt-4">
+        <div className="flex items-center gap-2">
           <LanguageToggle />
           <ModeToggle />
         </div>

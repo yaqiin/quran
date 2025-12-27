@@ -3,9 +3,10 @@ import Header from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
 import DocumentViewer from '@/components/DocumentViewer.tsx';
 import { useState } from 'react';
-import { List, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Sidebar from '@/components/Sidebar';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const { isRTL } = useLanguage();
@@ -13,25 +14,37 @@ const Index = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className={`flex min-h-screen flex-col pt-4 ${isRTL ? 'rtl' : 'ltr'} transition-colors`}>
+    <div className={`flex min-h-screen flex-col ${isRTL ? 'rtl' : 'ltr'} transition-colors`}>
       <Header />
 
-      <div className="flex w-full flex-1 flex-col justify-center gap-4 px-2 py-6 md:flex-row md:px-4">
-        {isSidebarOpen && <Sidebar setIsSidebarOpen={setIsSidebarOpen} />}
+      <div className="flex w-full flex-1 flex-col gap-6 px-4 py-6 md:flex-row md:px-6 lg:px-8">
+        {/* Desktop Sidebar - Always visible */}
+        {!isMobile && <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
 
-        <div className="flex grow flex-col gap-4">
-          <div className="flex">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={`rounded-md bg-white p-2 text-black shadow-md backdrop-blur-md dark:bg-gray-700 dark:text-white ${
-                isRTL ? 'ml-auto' : 'mr-auto'
-              }`}
-            >
-              {isSidebarOpen && !isMobile ? <X size={20} /> : <List size={20} />}
-            </button>
+        {/* Mobile Sidebar - Conditional */}
+        {isMobile && <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
+
+        {/* Main Content */}
+        <div className="flex flex-1 flex-col">
+          {/* Sidebar Toggle Button - Mobile Only */}
+          {isMobile && (
+            <div className={`mb-4 flex ${isRTL ? 'justify-start' : 'justify-end'}`}>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="h-9 w-9 rounded-lg"
+                aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+              >
+                <Menu className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+
+          {/* Document Viewer */}
+          <div className="flex flex-1 items-center justify-center">
+            <DocumentViewer className="w-full max-w-7xl animate-fade-in" />
           </div>
-
-          <DocumentViewer className="yaqiin-container w-full animate-fade-in rounded-lg shadow-inner" />
         </div>
       </div>
 

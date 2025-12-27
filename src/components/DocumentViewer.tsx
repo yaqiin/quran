@@ -34,7 +34,7 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
           key={currentPage}
           pageNumber={currentPage}
           totalPages={totalPages}
-          className="animate-fadeIn aspect-[3/4] w-full max-w-md"
+          className="animate-fade-in aspect-[3/4] w-full max-w-md"
         />,
       ];
     }
@@ -86,69 +86,73 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
         </div>
 
         {/* Navigation controls */}
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-1.5 rounded-lg border bg-card p-2 shadow-sm">
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={goToFirstPage}
             disabled={currentPage === 1}
             title={t('firstPage')}
             aria-label={t('firstPage')}
+            className="h-9 w-9"
           >
             {icons.first}
           </Button>
 
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={goToPreviousPages}
             disabled={currentPage === 1}
             title={t('previousPage')}
             aria-label={t('previousPage')}
+            className="h-9 w-9"
           >
             {icons.previous}
           </Button>
 
-          <div className="mx-4 text-sm font-medium">
-            <span>{currentPage.toLocaleString(currentLanguage)}</span>
+          <div className="mx-3 flex items-center gap-1 rounded-md bg-muted px-3 py-1.5 text-sm font-medium">
+            <span className="text-foreground">{currentPage.toLocaleString(currentLanguage)}</span>
             {!isMobile && currentPage + 1 <= totalPages && (
               <>
-                <span className="mx-1">-</span>
-                <span>{(currentPage + 1).toLocaleString(currentLanguage)}</span>
+                <span className="text-muted-foreground">-</span>
+                <span className="text-foreground">{(currentPage + 1).toLocaleString(currentLanguage)}</span>
               </>
             )}
-            <span className="mx-1 text-muted-foreground">{t('of')}</span>
-            <span>{totalPages.toLocaleString(currentLanguage)}</span>
+            <span className="text-muted-foreground">{t('of')}</span>
+            <span className="text-foreground">{totalPages.toLocaleString(currentLanguage)}</span>
           </div>
 
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={goToNextPages}
             disabled={isMobile ? currentPage === totalPages : currentPage + 1 >= totalPages}
             title={t('nextPage')}
             aria-label={t('nextPage')}
+            className="h-9 w-9"
           >
             {icons.next}
           </Button>
 
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={goToLastPage}
             disabled={isMobile ? currentPage === totalPages : currentPage + 1 >= totalPages}
             title={t('lastPage')}
             aria-label={t('lastPage')}
+            className="h-9 w-9"
           >
             {icons.last}
           </Button>
         </div>
 
         {/* Page number input */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-2">
           <label
             htmlFor="goto-input"
-            className="mb-1 w-full text-xs font-bold text-muted-foreground md:text-sm"
+            className="text-xs font-medium text-muted-foreground"
             style={{ textAlign: isRTL ? 'right' : 'left' }}
           >
             {t('goToPage')}
@@ -163,18 +167,18 @@ export default function DocumentViewer({ className }: DocumentViewerProps) {
               value={gotoPage}
               onChange={(e) => setGotoPage(e.target.value.replace(/\D/, ''))}
               onKeyDown={handleGotoInputKeyDown}
-              className={`h-10 w-20 rounded border px-2 text-center transition-all focus:ring-2 focus:ring-primary md:w-28 ${
+              className={`h-10 w-20 rounded-md border border-input bg-background px-3 text-center text-sm transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 md:w-28 ${
                 isRTL ? 'text-right' : 'text-left'
               }`}
               aria-label={t('pageNumber')}
               dir="ltr" // Always LTR for numbers
             />
-            <Button variant="secondary" onClick={handleGoto}>
+            <Button variant="default" onClick={handleGoto} className="h-10">
               {t('goTo')}
             </Button>
           </div>
           {gotoError && (
-            <div className="animate-fadeIn mt-2 text-xs text-red-500" role="alert">
+            <div className="animate-fade-in text-xs text-destructive" role="alert">
               {gotoError}
             </div>
           )}

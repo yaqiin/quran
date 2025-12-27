@@ -16,17 +16,16 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto w-full bg-secondary/20 px-4 text-foreground dark:bg-secondary/10">
-      <div className="relative mx-auto max-w-7xl">
-        {/* Subtle Separator */}
-        <Separator className="mb-4 bg-muted-foreground/20" />
+    <footer className="mt-auto w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="yaqiin-container">
+        <Separator className="mb-6" />
 
         {/* Mobile */}
-        <div className="flex flex-col items-center gap-2 py-4 md:hidden">
+        <div className="flex flex-col items-center gap-4 py-6 md:hidden">
           <div className="flex items-center justify-center gap-6">
             {socialLinks.map((link) => (
               <a
@@ -34,43 +33,39 @@ export function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground dark:text-muted-foreground/70 dark:hover:text-foreground"
+                className="rounded-lg p-2 text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
                 aria-label={link.label}
               >
-                <link.icon className="h-6 w-6" />
+                <link.icon className="h-5 w-5" />
               </a>
             ))}
           </div>
 
-          <p className="text-center text-sm text-muted-foreground dark:text-muted-foreground/70">
+          <p className="text-center text-sm text-muted-foreground">
             {currentYear} &copy; {t('copyright')}
           </p>
         </div>
 
         {/* Desktop */}
-        <div className="hidden py-4 md:block">
-          <div className="flex items-center justify-center gap-6">
+        <div className="hidden items-center justify-between py-6 md:flex">
+          <p className="text-sm text-muted-foreground">
+            {currentYear} &copy; {t('copyright')}
+          </p>
+
+          <div className="flex items-center justify-center gap-4">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground dark:text-muted-foreground/70 dark:hover:text-foreground"
+                className="rounded-lg p-2 text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
                 aria-label={link.label}
               >
-                <link.icon className="h-6 w-6" />
+                <link.icon className="h-5 w-5" />
               </a>
             ))}
           </div>
-
-          <p
-            className={`absolute top-1/2 -translate-y-1/2 text-sm text-muted-foreground dark:text-muted-foreground/70 ${
-              isRTL ? 'right-4 text-right' : 'left-4 text-left'
-            }`}
-          >
-            {currentYear} &copy; {t('copyright')}
-          </p>
         </div>
       </div>
     </footer>

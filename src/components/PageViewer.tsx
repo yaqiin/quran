@@ -51,7 +51,7 @@ export default function PageViewer({ pageNumber, totalPages, className }: PageVi
   return (
     <div
       className={cn(
-        'relative flex items-center justify-center overflow-hidden rounded-lg bg-white shadow-md',
+        'relative flex items-center justify-center overflow-hidden rounded-lg border bg-card shadow-lg transition-shadow hover:shadow-xl',
         className,
       )}
     >
@@ -63,16 +63,18 @@ export default function PageViewer({ pageNumber, totalPages, className }: PageVi
         </div>
       ) : (
         <>
-          <img
-            src={pagePath}
-            alt={`صفحة ${pageNumber}`}
-            className={cn(
-              'h-full w-full object-contain transition-opacity duration-300',
-              isLoading ? 'opacity-0' : 'opacity-100',
-            )}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
+          <div className="h-full w-full bg-white dark:bg-white">
+            <img
+              src={pagePath}
+              alt={`صفحة ${pageNumber}`}
+              className={cn(
+                'h-full w-full object-contain transition-opacity duration-500',
+                isLoading ? 'opacity-0' : 'opacity-100',
+              )}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          </div>
 
           {/* This would be the actual SVG in production */}
           {/*
@@ -94,7 +96,7 @@ export default function PageViewer({ pageNumber, totalPages, className }: PageVi
           </object>
           */}
 
-          <span className="absolute bottom-2 left-1/2 -translate-x-1/2 transform rounded-full bg-white/80 px-2 py-1 text-xs text-muted-foreground">
+          <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
             {pageNumber}
           </span>
         </>

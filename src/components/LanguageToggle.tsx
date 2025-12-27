@@ -19,19 +19,20 @@ const LanguageToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
-          className="flex items-center gap-2 rounded-full bg-background/80 backdrop-blur-sm transition-all"
+          variant="ghost"
+          size="sm"
+          className="flex items-center gap-2"
           aria-label={t('toggleLanguage')}
         >
-          <Globe size={16} />
-          <span>{supportedLanguages[language].nativeName}</span>
+          <Globe className="h-4 w-4" />
+          <span className="hidden sm:inline">{supportedLanguages[language].nativeName}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {Object.entries(supportedLanguages).map(([code, config]) => (
           <DropdownMenuItem key={code} onClick={() => handleLanguageChange(code)}>
             <span className="flex items-center gap-2">
-              {config.nativeName} {language === code && <Check size={16} />}
+              {config.nativeName} {language === code && <Check className="h-4 w-4" />}
             </span>
           </DropdownMenuItem>
         ))}

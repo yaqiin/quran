@@ -1,5 +1,5 @@
-
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 interface PageSkeletonProps {
   className?: string;
@@ -7,8 +7,11 @@ interface PageSkeletonProps {
 
 export default function PageSkeleton({ className }: PageSkeletonProps) {
   return (
-    <div className={cn("w-full h-full flex items-center justify-center", className)}>
-      <div className="w-4/5 h-4/5 bg-muted animate-pulse rounded"></div>
+    <div className={cn("absolute inset-0 flex items-center justify-center bg-muted/50", className)}>
+      <div className="flex flex-col items-center gap-3">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-sm text-muted-foreground">جاري التحميل...</p>
+      </div>
     </div>
   );
 }
