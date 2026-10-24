@@ -2,88 +2,36 @@ import { Moon, Sun, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { cn } from '@/lib/utils';
+import SegmentedControl from './SegmentedControl';
 
-export function ModeToggle() {
+type Theme = 'light' | 'dark' | 'system';
+
+/** Light / dark / system in one tap — no menu to open. */
+export function ModeToggle({ showLabels, className }: { showLabels?: boolean; className?: string }) {
   const { theme, setTheme } = useTheme();
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
+  // Avoid hydration mismatch: the stored theme is only known on the client
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon" className="h-9 w-9" disabled>
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-      </Button>
-    );
-  }
-
-  const getThemeIcon = () => {
-    if (theme === 'light') {
-      return <Sun className="h-[1.2rem] w-[1.2rem]" />;
-    }
-    if (theme === 'dark') {
-      return <Moon className="h-[1.2rem] w-[1.2rem]" />;
-    }
-    return <Monitor className="h-[1.2rem] w-[1.2rem]" />;
-  };
+  const icon = 'h-4 w-4 shrink-0';
 
   return (
-    <DropdownMenu>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-9 w-9" aria-label={t('toggleTheme')}>
-              {getThemeIcon()}
-            </Button>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{t('toggleTheme')}</p>
-        </TooltipContent>
-      </Tooltip>
-      <DropdownMenuContent align={isRTL ? 'start' : 'end'} className="min-w-[120px]">
-        <DropdownMenuItem
-          onClick={() => setTheme('light')}
-          className={cn('flex cursor-pointer items-center justify-between', theme === 'light' && 'bg-accent font-medium')}
-        >
-          <span className="flex items-center gap-2">
-            <Sun className="h-4 w-4" />
-            <span className="text-sm">{t('themeLight')}</span>
-          </span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('dark')}
-          className={cn('flex cursor-pointer items-center justify-between', theme === 'dark' && 'bg-accent font-medium')}
-        >
-          <span className="flex items-center gap-2">
-            <Moon className="h-4 w-4" />
-            <span className="text-sm">{t('themeDark')}</span>
-          </span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('system')}
-          className={cn('flex cursor-pointer items-center justify-between', theme === 'system' && 'bg-accent font-medium')}
-        >
-          <span className="flex items-center gap-2">
-            <Monitor className="h-4 w-4" />
-            <span className="text-sm">{t('themeSystem')}</span>
-          </span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <SegmentedControl<Theme>
+      label={t('toggleTheme')}
+      value={mounted ? ((theme as Theme | undefined) ?? 'system') : 'system'}
+      onChange={setTheme}
+      iconOnly={!showLabels}
+      className={className ?? 'w-[7.5rem]'}
+      options={[
+        { value: 'light', label: t('themeLight'), icon: <Sun className={icon} /> },
+        { value: 'dark', label: t('themeDark'), icon: <Moon className={icon} /> },
+        { value: 'system', label: t('themeSystem'), icon: <Monitor className={icon} /> },
+      ]}
+    />
   );
 }

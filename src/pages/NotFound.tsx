@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { GeometricPattern, Logo } from '@/components/Brand';
 
 const NotFound = () => {
   const location = useLocation();
@@ -11,11 +12,20 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className={`flex min-h-screen items-center justify-center bg-gray-100 ${isRTL ? 'rtl' : 'ltr'}`}>
+    <div
+      className={`relative isolate flex min-h-screen items-center justify-center overflow-hidden px-4 ${isRTL ? 'rtl' : 'ltr'}`}
+    >
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/80 via-background to-background dark:from-accent/50" />
+      <GeometricPattern className="absolute inset-0 -z-10 h-full w-full text-foreground/[0.035] dark:text-white/[0.02]" />
+
       <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">{t('pageNotFound')}</p>
-        <a href="/" className="text-yaqiin-500 underline hover:text-yaqiin-700">
+        <Logo className="mx-auto h-14 w-14" />
+        <h1 className="mt-6 font-display text-6xl font-bold text-foreground">404</h1>
+        <p className="mt-3 text-lg text-muted-foreground">{t('pageNotFound')}</p>
+        <a
+          href="/"
+          className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary/90"
+        >
           {t('backHome')}
         </a>
       </div>

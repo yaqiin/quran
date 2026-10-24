@@ -2,67 +2,148 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Thmanyah typeface (same as yaqiin-landing) — served locally from /public/fonts */
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyahsans-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyahserifdisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyahserifdisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyahserifdisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyahserifdisplay-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --background: 178 30% 97%;
-    --foreground: 178 60% 10%;
+    /* Warm ivory surfaces, deep emerald for actions, gold for highlights */
+    --background: 42 33% 97%;
+    --foreground: 168 45% 11%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 178 60% 10%;
+    --card: 40 50% 99%;
+    --card-foreground: 168 45% 11%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 178 60% 10%;
+    --popover: 40 50% 99%;
+    --popover-foreground: 168 45% 11%;
 
-    --primary: 178 100% 34%;
-    --primary-foreground: 178 5% 98%;
+    --primary: 164 80% 24%;
+    --primary-foreground: 42 60% 98%;
 
-    --secondary: 178 30% 94%;
-    --secondary-foreground: 178 60% 16%;
+    --secondary: 40 40% 94%;
+    --secondary-foreground: 168 45% 14%;
 
-    --muted: 178 20% 92%;
-    --muted-foreground: 178 20% 40%;
+    --muted: 40 24% 92.5%;
+    --muted-foreground: 165 10% 40%;
 
-    --accent: 178 30% 90%;
-    --accent-foreground: 178 60% 16%;
+    --accent: 150 30% 92%;
+    --accent-foreground: 164 70% 18%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 178 20% 88%;
-    --input: 178 20% 88%;
-    --ring: 178 100% 34%;
+    --border: 38 20% 86%;
+    --input: 38 18% 83%;
+    --ring: 164 80% 30%;
 
-    --radius: 0.5rem;
+    --gold: 38 75% 45%;
+    --page: 44 70% 98.5%;
+
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 178 20% 8%;
-    --foreground: 178 20% 92%;
+    /* Ink-green night mode: low saturation, so the page stays the brightest thing on screen */
+    --background: 170 22% 6%;
+    --foreground: 42 25% 92%;
 
-    --card: 178 14% 12%;
-    --card-foreground: 178 20% 92%;
+    --card: 168 18% 9%;
+    --card-foreground: 42 25% 92%;
 
-    --popover: 178 14% 12%;
-    --popover-foreground: 178 20% 92%;
+    --popover: 168 18% 10%;
+    --popover-foreground: 42 25% 92%;
 
-    --primary: 178 100% 34%;
-    --primary-foreground: 178 5% 98%;
+    --primary: 156 48% 56%;
+    --primary-foreground: 168 45% 8%;
 
-    --secondary: 178 10% 20%;
-    --secondary-foreground: 178 30% 94%;
+    --secondary: 168 14% 13%;
+    --secondary-foreground: 42 25% 92%;
 
-    --muted: 178 10% 24%;
-    --muted-foreground: 178 10% 60%;
+    --muted: 168 14% 13%;
+    --muted-foreground: 160 8% 62%;
 
-    --accent: 178 15% 22%;
-    --accent-foreground: 178 30% 94%;
+    --accent: 165 18% 16%;
+    --accent-foreground: 42 25% 94%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 178 10% 28%;
-    --input: 178 10% 28%;
-    --ring: 178 100% 34%;
+    --border: 168 12% 17%;
+    --input: 168 12% 20%;
+    --ring: 156 48% 56%;
+
+    --gold: 40 80% 64%;
+    --page: 42 40% 91%;
   }
 
   * {
@@ -70,7 +151,22 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  ::selection {
+    @apply bg-amber-200 text-emerald-950;
+  }
+
+  /* Hide number input spinners */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 
   /* RTL-specific styles */
@@ -97,21 +193,25 @@
   .card-hover {
     @apply transition-all duration-300 hover:border-yaqiin-300 hover:shadow-md;
   }
+
+  .glass {
+    @apply border border-border/60 bg-card/75 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(20,40,30,0.12)] backdrop-blur-xl dark:border-white/[0.06] dark:bg-card/60;
+  }
 }
 
 @layer utilities {
   .animate-slideInLeft {
-    animation: slideInLeft 0.3s ease-out;
+    animation: slideInLeft 0.35s ease-out;
   }
 
   .animate-slideInRight {
-    animation: slideInRight 0.3s ease-out;
+    animation: slideInRight 0.35s ease-out;
   }
 
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateX(-16px);
     }
     to {
       opacity: 1;
@@ -122,11 +222,19 @@
   @keyframes slideInRight {
     from {
       opacity: 0;
-      transform: translateX(20px);
+      transform: translateX(16px);
     }
     to {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slideInLeft,
+  .animate-slideInRight,
+  .animate-fade-in {
+    animation: none;
   }
 }

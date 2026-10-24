@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import tailwindcssAnimate from 'tailwindcss-animate';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   darkMode: ['class'],
@@ -14,7 +15,13 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Thmanyah Sans', ...defaultTheme.fontFamily.sans],
+        display: ['Thmanyah Serif Display', 'Thmanyah Sans', 'serif'],
+      },
       colors: {
+        page: 'hsl(var(--page))',
+        gold: 'hsl(var(--gold))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

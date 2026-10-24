@@ -1,179 +1,86 @@
-import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import { ModeToggle } from './ModeToggle';
+import DisplaySettings from './DisplaySettings';
 import { Button } from '@/components/ui/button';
 import { useBrowseQuran } from '@/lib/viewmodels/browse-quran.viewmodel';
-import { ChevronLeft, ChevronRight, SkipBack, SkipForward } from 'lucide-react';
-import { Github } from 'lucide-react';
+import { Github, Menu } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Logo } from './Brand';
+import { TOTAL_PAGES, formatNumber } from '@/lib/quran';
 
-const Header = () => {
-  const { t, isRTL, currentLanguage } = useLanguage();
-  const totalPages = 604;
-  const {
-    isMobile,
-    currentPage,
-    gotoPage,
-    gotoError,
-    inputRef,
-    setGotoPage,
-    handleGoto,
-    handleGotoInputKeyDown,
-    goToNextPages,
-    goToPreviousPages,
-    goToFirstPage,
-    goToLastPage,
-  } = useBrowseQuran(totalPages);
+interface HeaderProps {
+  onOpenSidebar: () => void;
+}
 
-  const getNavigationIcons = () => {
-    return isRTL
-      ? {
-          first: <SkipForward className="h-4 w-4" />,
-          previous: <ChevronRight className="h-4 w-4" />,
-          next: <ChevronLeft className="h-4 w-4" />,
-          last: <SkipBack className="h-4 w-4" />,
-        }
-      : {
-          first: <SkipBack className="h-4 w-4" />,
-          previous: <ChevronLeft className="h-4 w-4" />,
-          next: <ChevronRight className="h-4 w-4" />,
-          last: <SkipForward className="h-4 w-4" />,
-        };
-  };
-
-  const icons = getNavigationIcons();
+const Header = ({ onOpenSidebar }: HeaderProps) => {
+  const { t, isRTL, language } = useLanguage();
+  const { currentPage, activeSurah: surah, activeJoz: joz } = useBrowseQuran(TOTAL_PAGES);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      {/* Top Row: Logo, Title, Controls */}
-      <div className="yaqiin-container flex h-14 items-center justify-between border-b">
-        <div className="flex items-center gap-3">
-          <img
-            src="/logo.png"
-            alt="يقين"
-            className="h-8 w-8 rounded-lg object-contain transition-transform hover:scale-105"
-          />
-          <div className="hidden sm:block">
-            <h1 className="text-base font-semibold text-foreground">{t('siteName')}</h1>
-          </div>
+    <header className="relative z-30 w-full shrink-0 px-3 pt-3 md:px-5 md:pt-4">
+      <div className="glass flex h-14 items-center justify-between gap-3 rounded-2xl px-2 md:h-16 md:px-4">
+        {/* Brand */}
+        <div className="flex min-w-0 items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onOpenSidebar}
+            className="h-10 w-10 rounded-full md:hidden"
+            aria-label={t('openSidebar')}
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+          <a href="/" className="flex items-center gap-2.5" aria-label={`${t('brand')} - ${t('siteName')}`}>
+            <Logo className="h-9 w-9 md:h-10 md:w-10" />
+            <span className="hidden flex-col leading-tight sm:flex">
+              <span className="font-display text-lg font-bold text-foreground">{t('brand')}</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('siteName')}</span>
+            </span>
+          </a>
         </div>
 
+        {/* Where am I */}
+        {surah && (
+          <div className="flex min-w-0 flex-col items-center text-center leading-tight">
+            <span className="truncate font-display text-lg font-bold text-foreground md:text-xl">
+              {isRTL ? `سورة ${surah.name.ar}` : surah.name.en}
+            </span>
+            {joz && (
+              <span className="mt-0.5 text-[11px] font-medium text-gold md:text-xs">
+                {joz.name[isRTL ? 'ar' : 'en']}
+                <span className="mx-1.5 text-muted-foreground/50">·</span>
+                {t('page')} {formatNumber(currentPage, language)}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Settings */}
         <div className="flex items-center gap-2">
-          <LanguageToggle />
-          <ModeToggle />
+          <div className="hidden items-center gap-2 lg:flex">
+            <LanguageToggle />
+            <ModeToggle />
+          </div>
+          <div className="lg:hidden">
+            <DisplaySettings />
+          </div>
           <Tooltip>
             <TooltipTrigger asChild>
               <a
                 href="https://github.com/yaqiin/quran"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg p-1.5 text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
+                className="hidden h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition hover:bg-accent hover:text-accent-foreground sm:inline-flex"
                 aria-label={t('contributeOnGitHub')}
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-[1.1rem] w-[1.1rem]" />
               </a>
             </TooltipTrigger>
             <TooltipContent>
               <p>{t('contributeOnGitHub')}</p>
             </TooltipContent>
           </Tooltip>
-        </div>
-      </div>
-
-      {/* Bottom Row: Navigation Controls */}
-      <div className="yaqiin-container flex h-12 items-center justify-between gap-2">
-        {/* Navigation Controls */}
-        <div className="flex items-center gap-1.5">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={goToFirstPage}
-            disabled={currentPage === 1}
-            title={t('firstPage')}
-            aria-label={t('firstPage')}
-            className="h-8 w-8"
-          >
-            {icons.first}
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={goToPreviousPages}
-            disabled={currentPage === 1}
-            title={t('previousPage')}
-            aria-label={t('previousPage')}
-            className="h-8 w-8"
-          >
-            {icons.previous}
-          </Button>
-
-          <div className="mx-2 flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-xs font-medium">
-            <span className="text-foreground">{currentPage.toLocaleString(currentLanguage)}</span>
-            {!isMobile && currentPage + 1 <= totalPages && (
-              <>
-                <span className="text-muted-foreground">-</span>
-                <span className="text-foreground">{(currentPage + 1).toLocaleString(currentLanguage)}</span>
-              </>
-            )}
-            <span className="text-muted-foreground">{t('of')}</span>
-            <span className="text-foreground">{totalPages.toLocaleString(currentLanguage)}</span>
-          </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={goToNextPages}
-            disabled={isMobile ? currentPage === totalPages : currentPage + 1 >= totalPages}
-            title={t('nextPage')}
-            aria-label={t('nextPage')}
-            className="h-8 w-8"
-          >
-            {icons.next}
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={goToLastPage}
-            disabled={isMobile ? currentPage === totalPages : currentPage + 1 >= totalPages}
-            title={t('lastPage')}
-            aria-label={t('lastPage')}
-            className="h-8 w-8"
-          >
-            {icons.last}
-          </Button>
-        </div>
-
-        {/* Page Input & Footer Content */}
-        <div className="flex items-center gap-3">
-          {/* Page Input */}
-          <div className="flex items-center gap-1.5">
-            <input
-              id="goto-input"
-              ref={inputRef}
-              type="number"
-              min={1}
-              max={totalPages}
-              value={gotoPage}
-              onChange={(e) => setGotoPage(e.target.value.replace(/\D/, ''))}
-              onKeyDown={handleGotoInputKeyDown}
-              className={`h-8 w-16 rounded-md border border-input bg-background px-2 text-center text-xs transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 md:w-20 ${
-                isRTL ? 'text-right' : 'text-left'
-              }`}
-              aria-label={t('pageNumber')}
-              dir="ltr"
-            />
-            <Button variant="default" onClick={handleGoto} className="h-8 px-2 text-xs">
-              {t('goTo')}
-            </Button>
-          </div>
-          {gotoError && (
-            <div className="animate-fade-in text-xs text-destructive" role="alert">
-              {gotoError}
-            </div>
-          )}
         </div>
       </div>
     </header>
